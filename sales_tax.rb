@@ -55,6 +55,19 @@ class Basket
     p parse_string
   end
 
+  def my_items
+    @str_a = parse_string
+
+    @items = @str_a.length/3
+    @new_str_a = Array.new(@items) {Array.new(3)}
+
+    @items.times do |n|
+      @new_str_a[n][0] = @str_a[n*3]
+      @new_str_a[n][1] = @str_a[n*3+1]
+      @new_str_a[n][2] = @str_a[n*3+2]
+    end
+    p @new_str_a
+  end
 end
 
 # def calculate_tax price
@@ -66,6 +79,8 @@ basket_1 = Basket.new("1 book at 12.49 1 music CD at 14.99 1 chocolate bar at 0.
 basket_2 = Basket.new("1 imported box of chocolates at 10.00 1 imported bottle of perfume at 47.50")
 basket_3 = Basket.new("1 imported bottle of perfume at 27.99 1 bottle of perfume at 18.99 1 packet of headache pills at 9.75 1 box of imported chocolates at 11.25")
 
-basket_1.print_string
-basket_2.print_string
-basket_3.print_string
+# basket_1.print_string
+# basket_2.print_string
+# basket_3.print_string
+
+basket_1.my_items

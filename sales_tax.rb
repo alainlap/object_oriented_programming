@@ -85,6 +85,13 @@ end
 
 generate_receipt(basket_3.my_items)
 
-
+item_h ={
+  quantity: nil,
+  item: nil,
+  cost: nil,
+  import: nil,
+  type: nil,
+  tax_rate: nil
+}
 
 

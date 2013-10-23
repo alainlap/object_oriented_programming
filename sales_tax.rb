@@ -12,20 +12,20 @@
 
 
 
-class Goods
-  # def initialize type, cost
-  #   @type = type
-  #   @cost = cost
-  # end
-end
+# class Goods
+#   # def initialize type, cost
+#   #   @type = type
+#   #   @cost = cost
+#   # end
+# end
 
-class Taxable_Goods < Goods
+# class Taxable_Goods < Goods
 
-end
+# end
 
-class Exempt_Goods < Goods
+# class Exempt_Goods < Goods
 
-end
+# end
 
 class Basket
 
@@ -66,7 +66,7 @@ class Basket
       @new_str_a[n][1] = @str_a[n*3+1]
       @new_str_a[n][2] = @str_a[n*3+2]
     end
-    p @new_str_a
+    @new_str_a
   end
 end
 
@@ -79,8 +79,40 @@ basket_1 = Basket.new("1 book at 12.49 1 music CD at 14.99 1 chocolate bar at 0.
 basket_2 = Basket.new("1 imported box of chocolates at 10.00 1 imported bottle of perfume at 47.50")
 basket_3 = Basket.new("1 imported bottle of perfume at 27.99 1 bottle of perfume at 18.99 1 packet of headache pills at 9.75 1 box of imported chocolates at 11.25")
 
-# basket_1.print_string
+# basket_3.print_string
 # basket_2.print_string
 # basket_3.print_string
 
-basket_1.my_items
+def check_if_imported item
+  if item.includes?('import')
+    true
+  else
+    false
+  end
+end
+
+def calculate_tax price, import
+  if import == true
+    price*1.50
+  else
+    price*1.13
+  end
+end
+
+def generate_receipt str_a
+  total = 0
+  puts "\n You have purchased: \n\n"
+  str_a.each do |item|
+    puts "#{item[0]} x #{item[1]}: $#{item[2]*1.13};"
+    total += item[2].to_f
+  end
+  puts "\n Your total is: \t $#{total.round(2)}"
+  puts "\n"
+end
+
+generate_receipt(basket_3.my_items)
+
+
+
+
+

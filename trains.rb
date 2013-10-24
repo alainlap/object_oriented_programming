@@ -149,12 +149,6 @@ class Station
   def initialize distances
     
     @distances = distances
-    # @to_station_A = "Unknown"
-    # @to_station_B = "Unknown"
-    # @to_station_C = "Unknown"
-    # @to_station_D = "Unknown"
-    # @to_station_E = "Unknown"
-
     @to_station_A = @distances[0]
     @to_station_B = @distances[1]
     @to_station_C = @distances[2]
@@ -162,8 +156,24 @@ class Station
     @to_station_E = @distances[4]
   end
 
-  def distance_to
+  def distance_to_C station_B
+    @to_station_C == nil ? (@to_station_C = @to_station_B + station_B.to_station_C) : false
+  end
 
+  def distance_to_D station_C
+    @to_station_D == nil ? (@to_station_D = @to_station_C + station_C.to_station_D) : false
+  end
+
+  def distance_to_E station_D
+    @to_station_E == nil ? (@to_station_E = @to_station_D + station_D.to_station_E) : false
+  end
+
+  def print_all_distances
+    p "The distance to station A is: #{to_station_A}"
+    p "The distance to station B is: #{to_station_B}"
+    p "The distance to station C is: #{to_station_C}"
+    p "The distance to station D is: #{to_station_D}"
+    p "The distance to station E is: #{to_station_E}"
   end
 end
 
@@ -182,14 +192,16 @@ station_C = Station.new(c)
 station_D = Station.new(d)
 station_E = Station.new(e)
 
+station_A.distance_to_C(station_B)
+station_B.distance_to_D(station_C)
+station_C.distance_to_E(station_D)
+
 # Check distances
-p station_A.to_station_A
-p station_A.to_station_B
-p station_A.to_station_C
-p station_A.to_station_D
-p station_A.to_station_E
-
-
+station_A.print_all_distances
+station_B.print_all_distances
+station_C.print_all_distances
+station_D.print_all_distances
+station_E.print_all_distances
 
 
 

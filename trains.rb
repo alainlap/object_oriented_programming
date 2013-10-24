@@ -108,6 +108,8 @@ def solve_with_matrix
 
   # matrix = Array.new(5) {Array.new(5)}
 
+
+
   a = [0,   5,   nil, 5,   7]
   b = [nil, 0,   4,   nil, nil]
   c = [nil, nil, 0,   8,   2]
@@ -116,14 +118,89 @@ def solve_with_matrix
 
   matrix = [a, b, c, d, e]
 
-  matrix.each_index { |depart|
-    matrix[depart].each_index { |arrive|
-   
+  matrix.each_with_index { |distances, origin|
+    matrix[origin].each_with_index { |distance, destination|
+      p "The distance between #{map_location(origin)} and #{map_location(destination)} is: #{distance}"
     }
   }
-
 end
 
-p solve_with_matrix
+def map_location index
+
+  map = {
+    0 => 'Station A',
+    1 => 'Station B',
+    2 => 'Station C',
+    3 => 'Station D',
+    4 => 'Station E'
+  }
+
+  map[index]
+end
+
+# p solve_with_matrix
+# p map_location(1)
+
+
+class Station
+  
+  attr_accessor :to_station_A, :to_station_B, :to_station_C, :to_station_D, :to_station_E
+
+  def initialize distances
+    
+    @distances = distances
+    # @to_station_A = "Unknown"
+    # @to_station_B = "Unknown"
+    # @to_station_C = "Unknown"
+    # @to_station_D = "Unknown"
+    # @to_station_E = "Unknown"
+
+    @to_station_A = @distances[0]
+    @to_station_B = @distances[1]
+    @to_station_C = @distances[2]
+    @to_station_D = @distances[3]
+    @to_station_E = @distances[4]
+  end
+
+  def distance_to
+
+  end
+end
+
+
+#Input Distances
+a = [0,   5,   nil, 5,   7]
+b = [nil, 0,   4,   nil, nil]
+c = [nil, nil, 0,   8,   2]
+d = [nil, nil, 8,   0,   6]
+e = [nil, 3,   nil, nil, 0]
+
+# Create station objects
+station_A = Station.new(a)
+station_B = Station.new(b)
+station_C = Station.new(c)
+station_D = Station.new(d)
+station_E = Station.new(e)
+
+# Check distances
+p station_A.to_station_A
+p station_A.to_station_B
+p station_A.to_station_C
+p station_A.to_station_D
+p station_A.to_station_E
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

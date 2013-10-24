@@ -54,7 +54,6 @@ class Station
     index = convert_node_to_index(node)
     distances[index]
   end
-
 end
 
 class Conductor
@@ -70,13 +69,13 @@ class Conductor
   end
 
   def build_matrix
-    a = [0,   5,   nil, 5,   7]
-    b = [nil, 0,   4,   nil, nil]
-    c = [nil, nil, 0,   8,   2]
-    d = [nil, nil, 8,   0,   6]
-    e = [nil, 3,   nil, nil, 0]
 
-    @matrix = [a, b, c, d, e]
+    a = @station_A.distance_array
+    b = @station_B.distance_array
+    c = @station_C.distance_array
+    d = @station_D.distance_array
+    e = @station_E.distance_array
+    matrix = [a, b, c, d, e]
   end
 
   def calculate_distances *nodes
@@ -99,8 +98,19 @@ class Conductor
   def distance_between node_1, node_2
     node_1 = convert_node_to_index(node_1)
     node_2 = convert_node_to_index(node_2)
-    @matrix = build_matrix
-    @matrix[node_1][node_2]
+    matrix = build_matrix
+    matrix[node_1][node_2]
+  end
+
+  def possible_routes origin, no_of_stops
+
+    matrix = build_matrix
+    origin = convert_node_to_index(origin)
+    matrix[origin].each_with_index do |distance, destination|
+      if (distance != nil) && (distance != 0)
+        
+      end
+    end
   end
 end
 
@@ -115,22 +125,20 @@ end
 conductor = Conductor.new(station_A, station_B, station_C, station_D, station_E)
 
 # Ask Conductor questions
+  # puts "\n 1. The distance of the route A-B-C: #{conductor.calculate_distances('A', 'B', 'C')}"
+  # puts "\n 2. The distance of the route A-D: #{conductor.calculate_distances('A', 'D')}"
+  # puts "\n 3. The distance of the route A-D-C: #{conductor.calculate_distances('A', 'D', 'C')}"
+  # puts "\n 4. The distance of the route A-E-B-C-D: #{conductor.calculate_distances('A', 'E', 'B', 'C', 'D')}"
+  # puts "\n 5. The distance of the route A-E-D: #{conductor.calculate_distances('A', 'E', 'D')}"
 
+  # puts "\n 6. The number of trips starting at C and ending at C with a maximum of 3 stops.  In the sample data below, there are two such trips: C-D-C (2 stops). and C-E-B-C (3 stops)."
+  # puts "\n 7. The number of trips starting at A and ending at C with exactly 4 stops.  In the sample data below, there are three such trips: A to C (via B,C,D); A to C (via D,C,D); and A to C (via D,E,B)."
+  # puts "\n 8. The length of the shortest route (in terms of distance to travel) from A to C."
+  # puts "\n 9. The length of the shortest route (in terms of distance to travel) from B to B."
+  # puts "\n 10. The number of different routes from C to C with a distance of less than 30.  In the sample data, the trips are: CDC, CEBC, CEBCDC, CDCEBC, CDEBC, CEBCEBC, CEBCEBCEBC."
+   
 
-puts "\n 1. The distance of the route A-B-C: #{conductor.calculate_distances('A', 'B', 'C')}"
-puts "\n 2. The distance of the route A-D: #{conductor.calculate_distances('A', 'D')}"
-puts "\n 3. The distance of the route A-D-C: #{conductor.calculate_distances('A', 'D', 'C')}"
-puts "\n 4. The distance of the route A-E-B-C-D: #{conductor.calculate_distances('A', 'E', 'B', 'C', 'D')}"
-puts "\n 5. The distance of the route A-E-D: #{conductor.calculate_distances('A', 'E', 'D')}"
-
-puts "\n 6. The number of trips starting at C and ending at C with a maximum of 3 stops.  In the sample data below, there are two such trips: C-D-C (2 stops). and C-E-B-C (3 stops)."
-puts "\n 7. The number of trips starting at A and ending at C with exactly 4 stops.  In the sample data below, there are three such trips: A to C (via B,C,D); A to C (via D,C,D); and A to C (via D,E,B)."
-puts "\n 8. The length of the shortest route (in terms of distance to travel) from A to C."
-puts "\n 9. The length of the shortest route (in terms of distance to travel) from B to B."
-puts "\n 10. The number of different routes from C to C with a distance of less than 30.  In the sample data, the trips are: CDC, CEBC, CEBCDC, CDCEBC, CDEBC, CEBCEBC, CEBCEBCEBC."
- 
-
-
+conductor.possible_routes("A", 3)
 
 
 

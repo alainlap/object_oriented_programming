@@ -104,43 +104,53 @@ def solve_with_hashes
   p a, b, c, d, e
 end
 
-def solve_with_matrix
+# ************************************************************
 
-  # matrix = Array.new(5) {Array.new(5)}
+class Conductor
+  
+  def initialize a, b, c, d, e
 
+    @matrix = [a, b, c, d, e]
+  end
 
+  def print_all_distances
 
-  a = [0,   5,   nil, 5,   7]
-  b = [nil, 0,   4,   nil, nil]
-  c = [nil, nil, 0,   8,   2]
-  d = [nil, nil, 8,   0,   6]
-  e = [nil, 3,   nil, nil, 0]
-
-  matrix = [a, b, c, d, e]
-
-  matrix.each_with_index { |distances, origin|
-    matrix[origin].each_with_index { |distance, destination|
-      p "The distance between #{map_location(origin)} and #{map_location(destination)} is: #{distance}"
+    @matrix.each_with_index { |distances, origin|
+      @matrix[origin].each_with_index { |distance, destination|
+        p "The distance between #{map_location(origin)} and #{map_location(destination)} is: #{distance}"
+      }
     }
-  }
+  end
+
+  def map_location index
+
+    map = {
+      0 => 'Station A',
+      1 => 'Station B',
+      2 => 'Station C',
+      3 => 'Station D',
+      4 => 'Station E'
+    }
+
+    map[index]
+  end
 end
 
-def map_location index
+# Input strings
+a = [0,   5,   nil, 5,   7]
+b = [nil, 0,   4,   nil, nil]
+c = [nil, nil, 0,   8,   2]
+d = [nil, nil, 8,   0,   6]
+e = [nil, 3,   nil, nil, 0]
 
-  map = {
-    0 => 'Station A',
-    1 => 'Station B',
-    2 => 'Station C',
-    3 => 'Station D',
-    4 => 'Station E'
-  }
+# Create Conductor objects
+conductor = Conductor.new(a, b, c, d, e)
 
-  map[index]
-end
-
+conductor.print_all_distances
 # p solve_with_matrix
 # p map_location(1)
 
+# ************************************************************
 
 class Station
   
@@ -177,32 +187,41 @@ class Station
   end
 end
 
+class Conductor1
 
-#Input Distances
-a = [0,   5,   nil, 5,   7]
-b = [nil, 0,   4,   nil, nil]
-c = [nil, nil, 0,   8,   2]
-d = [nil, nil, 8,   0,   6]
-e = [nil, 3,   nil, nil, 0]
+  def initialize station_A, station_B, station_C, station_D, station_E
+    @station_A = station_A
+    @station_B = station_B
+    @station_C = station_C
+    @station_D = station_D
+    @station_E = station_E
+  end
+end
 
-# Create station objects
-station_A = Station.new(a)
-station_B = Station.new(b)
-station_C = Station.new(c)
-station_D = Station.new(d)
-station_E = Station.new(e)
+# #Input Distances
+# a = [0,   5,   nil, 5,   7]
+# b = [nil, 0,   4,   nil, nil]
+# c = [nil, nil, 0,   8,   2]
+# d = [nil, nil, 8,   0,   6]
+# e = [nil, 3,   nil, nil, 0]
 
-station_A.distance_to_C(station_B)
-station_B.distance_to_D(station_C)
-station_C.distance_to_E(station_D)
+# # Create station objects
+# station_A = Station.new(a)
+# station_B = Station.new(b)
+# station_C = Station.new(c)
+# station_D = Station.new(d)
+# station_E = Station.new(e)
 
-# Check distances
-station_A.print_all_distances
-station_B.print_all_distances
-station_C.print_all_distances
-station_D.print_all_distances
-station_E.print_all_distances
+# station_A.distance_to_C(station_B)
+# station_B.distance_to_D(station_C)
+# station_C.distance_to_E(station_D)
 
+# # Check distances
+# station_A.print_all_distances
+# station_B.print_all_distances
+# station_C.print_all_distances
+# station_D.print_all_distances
+# station_E.print_all_distances
 
 
 

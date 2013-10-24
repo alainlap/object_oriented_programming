@@ -55,69 +55,76 @@
 # Output #8: 9
 # Output #9: 9
 # Output #10: 7
-
-def solve_with_hashes
-
-  a = {A: 0,    B: 5,   C: nil, D: 5,   E: 7}
-  b = {A: nil,  B: 0,   C: 4,   D: nil, E: nil}
-  c = {A: nil,  B: nil, C: 0,   D: 8,   E: 2}
-  d = {A: nil,  B: nil, C: 8,   D: 0,   E: 6}
-  e = {A: nil,  B: 3,   C: nil, D: nil, E: 0}
-
-  e.each { |key, value|
-    if value != nil 
-      temp = d[:E] + value
-      if (d[key] == nil) || (temp < d[key])
-        d[key] = temp
-      end
-    end
-  }
-
-  d.each { |key, value|
-    if value != nil 
-      temp = c[:D] + value
-      if (c[key] == nil) || (temp < c[key])
-        c[key] = temp
-      end
-    end
-  }
-  c.each { |key, value|
-    if value != nil 
-      temp = b[:C] + value
-      if (b[key] == nil) || (temp < b[key])
-        b[key] = temp
-      end
-    end
-  }
-  b.each { |key, value|
-    if value != nil 
-      temp = a[:B] + value
-      if (a[key] == nil) || (temp < a[key])
-        a[key] = temp
-      end
-    end
-  }
-  # Don't go in the other direction because routes are not reversable
-
-
-
-  p a, b, c, d, e
-end
-
 # ************************************************************
 
-class Conductor
+class Station
   
-  def initialize a, b, c, d, e
+  # attr_accessor :to_station_A, :to_station_B, :to_station_C, :to_station_D, :to_station_E
 
-    @matrix = [a, b, c, d, e]
+  def initialize to_station_A, to_station_B, to_station_C, to_station_D, to_station_E
+    
+    @to_station_A = to_station_A
+    @to_station_B = to_station_B
+    @to_station_C = to_station_C
+    @to_station_D = to_station_D
+    @to_station_E = to_station_E
   end
 
   def print_all_distances
+    p "The distance to station A is: #{@to_station_A}"
+    p "The distance to station B is: #{@to_station_B}"
+    p "The distance to station C is: #{@to_station_C}"
+    p "The distance to station D is: #{@to_station_D}"
+    p "The distance to station E is: #{@to_station_E}"
+  end
+
+  def distance_matrix
+    [@to_station_A, @to_station_B, @to_station_C, @to_station_D, @to_station_E]
+  end
+end
+
+class Conductor
+  
+  def initialize station_A, station_B, station_C, station_D, station_E
+    @station_A = station_A
+    @station_B = station_B
+    @station_C = station_C
+    @station_D = station_D
+    @station_E = station_E
+  end
+
+  def build_matrix
+    a = @station_A.distance_matrix
+    b = @station_B.distance_matrix
+    c = @station_C.distance_matrix
+    d = @station_D.distance_matrix
+    e = @station_E.distance_matrix
+
+    [a, b, c, d, e]
+  end
+
+  def print_all_distances
+    @matrix = build_matrix
 
     @matrix.each_with_index { |distances, origin|
       @matrix[origin].each_with_index { |distance, destination|
         p "The distance between #{map_location(origin)} and #{map_location(destination)} is: #{distance}"
+      }
+    }
+  end
+
+  def calculate_distances
+    p @matrix = build_matrix
+
+    @matrix.each_with_index { |distances, origin|
+      @matrix[origin].each_with_index { |distance, destination|
+        if distance != nil 
+          temp = d[:E] + distan
+        elsif (d[key] == nil) || (temp < d[key])
+          d[key] = temp
+        end
+    end
+
       }
     }
   end
@@ -131,86 +138,34 @@ class Conductor
       3 => 'Station D',
       4 => 'Station E'
     }
-
     map[index]
   end
 end
 
-# Input strings
-a = [0,   5,   nil, 5,   7]
-b = [nil, 0,   4,   nil, nil]
-c = [nil, nil, 0,   8,   2]
-d = [nil, nil, 8,   0,   6]
-e = [nil, 3,   nil, nil, 0]
+# Create Station objects
+  station_A = Station.new(0,   5,   nil, 5,   7)
+  station_B = Station.new(nil, 0,   4,   nil, nil)
+  station_C = Station.new(nil, nil, 0,   8,   2)
+  station_D = Station.new(nil, nil, 8,   0,   6)
+  station_E = Station.new(nil, 3,   nil, nil, 0)
 
 # Create Conductor objects
-conductor = Conductor.new(a, b, c, d, e)
+conductor = Conductor.new(station_A, station_B, station_C, station_D, station_E)
 
-conductor.print_all_distances
+
+# TESTING
+# station_A.print_all_distances
+# conductor.print_all_distances
+conductor.calculate_distances
+
+# /TESTING
+
+
+
+
+# conductor.print_all_distances
 # p solve_with_matrix
 # p map_location(1)
-
-# ************************************************************
-
-class Station
-  
-  attr_accessor :to_station_A, :to_station_B, :to_station_C, :to_station_D, :to_station_E
-
-  def initialize distances
-    
-    @distances = distances
-    @to_station_A = @distances[0]
-    @to_station_B = @distances[1]
-    @to_station_C = @distances[2]
-    @to_station_D = @distances[3]
-    @to_station_E = @distances[4]
-  end
-
-  def distance_to_C station_B
-    @to_station_C == nil ? (@to_station_C = @to_station_B + station_B.to_station_C) : false
-  end
-
-  def distance_to_D station_C
-    @to_station_D == nil ? (@to_station_D = @to_station_C + station_C.to_station_D) : false
-  end
-
-  def distance_to_E station_D
-    @to_station_E == nil ? (@to_station_E = @to_station_D + station_D.to_station_E) : false
-  end
-
-  def print_all_distances
-    p "The distance to station A is: #{to_station_A}"
-    p "The distance to station B is: #{to_station_B}"
-    p "The distance to station C is: #{to_station_C}"
-    p "The distance to station D is: #{to_station_D}"
-    p "The distance to station E is: #{to_station_E}"
-  end
-end
-
-class Conductor1
-
-  def initialize station_A, station_B, station_C, station_D, station_E
-    @station_A = station_A
-    @station_B = station_B
-    @station_C = station_C
-    @station_D = station_D
-    @station_E = station_E
-  end
-end
-
-# #Input Distances
-# a = [0,   5,   nil, 5,   7]
-# b = [nil, 0,   4,   nil, nil]
-# c = [nil, nil, 0,   8,   2]
-# d = [nil, nil, 8,   0,   6]
-# e = [nil, 3,   nil, nil, 0]
-
-# # Create station objects
-# station_A = Station.new(a)
-# station_B = Station.new(b)
-# station_C = Station.new(c)
-# station_D = Station.new(d)
-# station_E = Station.new(e)
 
 # station_A.distance_to_C(station_B)
 # station_B.distance_to_D(station_C)

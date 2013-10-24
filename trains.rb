@@ -56,92 +56,74 @@
 # Output #9: 9
 # Output #10: 7
 
+def solve_with_hashes
 
-a = {A: 0,    B: 5,   C: nil, D: 5,   E: 7}
-b = {A: nil,  B: 0,   C: 4,   D: nil, E: nil}
-c = {A: nil,  B: nil, C: 0,   D: 8,   E: 2}
-d = {A: nil,  B: nil, C: 8,   D: 0,   E: 6}
-e = {A: nil,  B: 3,   C: nil, D: nil, E: 0}
+  a = {A: 0,    B: 5,   C: nil, D: 5,   E: 7}
+  b = {A: nil,  B: 0,   C: 4,   D: nil, E: nil}
+  c = {A: nil,  B: nil, C: 0,   D: 8,   E: 2}
+  d = {A: nil,  B: nil, C: 8,   D: 0,   E: 6}
+  e = {A: nil,  B: 3,   C: nil, D: nil, E: 0}
 
-e.each { |key, value|
-  if value != nil 
-    temp = d[:E] + value
-    if (d[key] == nil) || (temp < d[key])
-      d[key] = temp
+  e.each { |key, value|
+    if value != nil 
+      temp = d[:E] + value
+      if (d[key] == nil) || (temp < d[key])
+        d[key] = temp
+      end
     end
-  end
-}
+  }
 
-d.each { |key, value|
-  if value != nil 
-    temp = c[:D] + value
-    if (c[key] == nil) || (temp < c[key])
-      c[key] = temp
+  d.each { |key, value|
+    if value != nil 
+      temp = c[:D] + value
+      if (c[key] == nil) || (temp < c[key])
+        c[key] = temp
+      end
     end
-  end
-}
-c.each { |key, value|
-  if value != nil 
-    temp = b[:C] + value
-    if (b[key] == nil) || (temp < b[key])
-      b[key] = temp
+  }
+  c.each { |key, value|
+    if value != nil 
+      temp = b[:C] + value
+      if (b[key] == nil) || (temp < b[key])
+        b[key] = temp
+      end
     end
-  end
-}
-b.each { |key, value|
-  if value != nil 
-    temp = a[:B] + value
-    if (a[key] == nil) || (temp < a[key])
-      a[key] = temp
+  }
+  b.each { |key, value|
+    if value != nil 
+      temp = a[:B] + value
+      if (a[key] == nil) || (temp < a[key])
+        a[key] = temp
+      end
     end
-  end
-}
-# GO the other direction
-# a.each { |key, value|
-#   if value != nil 
-#     temp = b[:A] + value
-#     if (b[key] == nil) || (temp < b[key])
-#       b[key] = temp
-#     end
-#   end
-# }
-# b.each { |key, value|
-#   if value != nil 
-#     temp = c[:B] + value
-#     if (c[key] == nil) || (temp < c[key])
-#       c[key] = temp
-#     end
-#   end
-# }
-# c.each { |key, value|
-#   if value != nil 
-#     temp = d[:C] + value
-#     if (d[key] == nil) || (temp < d[key])
-#       d[key] = temp
-#     end
-#   end
-# }
-# d.each { |key, value|
-#   if value != nil 
-#     temp = e[:D] + value
-#     if (e[key] == nil) || (temp < e[key])
-#       e[key] = temp
-#     end
-#   end
-# }
-
-p a, b, c, d, e
-
-# graph = Array.new(6) {Array.new(6)}
+  }
+  # Don't go in the other direction because routes are not reversable
 
 
-# graph.each_index { |outer|
-#   graph[outer].each_index { |inner|
-#     graph[outer][0] = 
-#   }
-# }
 
-# p graph
+  p a, b, c, d, e
+end
 
+def solve_with_matrix
+
+  # matrix = Array.new(5) {Array.new(5)}
+
+  a = [0,   5,   nil, 5,   7]
+  b = [nil, 0,   4,   nil, nil]
+  c = [nil, nil, 0,   8,   2]
+  d = [nil, nil, 8,   0,   6]
+  e = [nil, 3,   nil, nil, 0]
+
+  matrix = [a, b, c, d, e]
+
+  matrix.each_index { |depart|
+    matrix[depart].each_index { |arrive|
+   
+    }
+  }
+
+end
+
+p solve_with_matrix
 
 
